@@ -108,3 +108,75 @@ html {
     justify-content: center;
 }
 
+/* hero*/
+.hero {
+    height: 500px;
+    background-image: url('https://via.placeholder.com/1920x500');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.overlay-hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.contenido-hero {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.contenido-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.contenido-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.boton-explorar {
+    background: #1e88e5;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background 0.3s;
+    display: inline-block;
+}
+
+.boton-explorar:hover {
+    background: #1565c0;
+}
+
+
+/* secciones*/
+
+.seccion {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.seccion h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #000;
+}
+
