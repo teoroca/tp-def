@@ -169,5 +169,36 @@
         </section>
 
     </main>
+
+ <!-- Modal del Carrito -->
+ <div class="modal-carrito" id="modalCarrito">
+    <div class="contenido-modal">
+        <div class="cabecera-modal">
+            <h3>Carrito de Compras</h3>
+            <button class="cerrar-modal" id="cerrarModal">&times;</button>
+        </div>
+        <div class="cuerpo-modal">
+            <div class="items-carrito" id="itemsCarrito">
+                <!-- donde se cargarán los productos del carrito -->
+            </div>
+            <div class="pie-modal">
+                <div class="total-carrito">
+                    <span>Total:</span>
+                    <span id="totalCarrito">$0</span>
+                </div>
+                <button class="boton-comprar" id="botonComprar">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- mensaje de confirmación -->
+<div class="mensaje-confirmacion" id="mensajeConfirmacion">
+    <p>Producto agregado al carrito</p>
+</div>
+
+
+
+    <script src="carrito.js"></script>
 </body>
 </html>
