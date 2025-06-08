@@ -599,3 +599,246 @@ html {
 .icono-red:hover {
     transform: scale(1.1);
 }
+
+/* Pago */
+.modal-pago {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .contenido-modal-pago {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .cabecera-modal-pago {
+    padding: 1.5rem;
+    background: #1e88e5;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cabecera-modal-pago h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .cerrar-modal-pago {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cuerpo-modal-pago {
+    padding: 2rem;
+  }
+  
+  .resumen-compra {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .resumen-compra h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .formulario-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .campo-formulario {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .campo-formulario label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .campo-formulario input,
+  .campo-formulario textarea {
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .campo-formulario input:focus,
+  .campo-formulario textarea:focus {
+    outline: none;
+    border-color: #1e88e5;
+  }
+  
+  .campo-formulario input.error,
+  .campo-formulario textarea.error {
+    border-color: #e53935;
+  }
+  
+  .error-mensaje {
+    color: #e53935;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    min-height: 1.2rem;
+  }
+  
+  .botones-formulario {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .boton-cancelar {
+    flex: 1;
+    padding: 1rem;
+    background: #666;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  
+  .boton-cancelar:hover {
+    background: #555;
+  }
+  
+  .boton-pagar {
+    flex: 2;
+    padding: 1rem;
+    background: #1e88e5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+  }
+  
+  .boton-pagar:hover {
+    background: #1565c0;
+  }
+  
+  /* Modal de exito */
+  .modal-exito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .contenido-modal-exito {
+    background: white;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .icono-exito {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contenido-modal-exito h3 {
+    color: #27ae60;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .detalles-compra {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+  
+  .detalles-compra p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .mensaje-envio {
+    color: #666;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  
+  .boton-cerrar-exito {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+  }
+  
+  .boton-cerrar-exito:hover {
+    background: #229954;
+  }
+  
+  @media (max-width: 480px) {
+    .contenido-modal-pago,
+    .contenido-modal-exito {
+      width: 95%;
+      margin: 1rem;
+    }
+  
+    .cuerpo-modal-pago {
+      padding: 1rem;
+    }
+  
+    .botones-formulario {
+      flex-direction: column;
+    }
+  
+    .boton-cancelar,
+    .boton-pagar {
+      flex: none;
+    }
+  }

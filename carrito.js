@@ -239,16 +239,14 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  botonComprar.addEventListener("click", (e) => {
-    e.preventDefault()
-    if (carrito.length > 0) {
-      const total = totalCarrito.textContent
-      alert(`¡Gracias por tu compra! Total: ${total}`)
-      vaciarCarrito()
-      modalCarrito.style.display = "none"
-    } else {
-      alert("Tu carrito está vacío")
-    }
+  // Finalizar compra
+    botonComprar.addEventListener("click", (e) => {
+        e.preventDefault()
+        if (carrito.length > 0) {
+         mostrarFormularioPago()
+        } else {
+        alert("Tu carrito está vacío")
+     }
   })
 
   
@@ -261,3 +259,156 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Carrito cargado:", carrito)
 })
+
+
+//COMPRA
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regex.test(email)
+  }
+  
+  // funcion para mostrar formulario de pago
+  function mostrarFormularioPago() {
+    const total = totalCarrito.textContent
+  
+    const formularioHTML = `
+      <div class="modal-pago" id="modalPago">
+        <div class="contenido-modal-pago">
+          <div class="cabecera-modal-pago">
+            <h3>Finalizar Compra</h3>
+            <button class="cerrar-modal-pago" id="cerrarModalPago">&times;</button>
+          </div>
+          <div class="cuerpo-modal-pago">
+            <div class="resumen-compra">
+              <h4>Resumen de tu compra</h4>
+              <p><strong>Total a pagar: ${total}</strong></p>
+            </div>
+            
+            <form class="formulario-pago" id="formularioPago">
+              <div class="campo-formulario">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <span class="error-mensaje" id="errorNombre"></span>
+              </div>
+              
+              <div class="campo-formulario">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-mensaje" id="errorEmail"></span>
+              </div>
+              
+              <div class="campo-formulario">
+                <label for="tarjeta">Número de tarjeta *</label>
+                <input type="text" id="tarjeta" name="tarjeta" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                <span class="error-mensaje" id="errorTarjeta"></span>
+              </div>
+              
+              <div class="campo-formulario">
+                <label for="direccion">Dirección de envío *</label>
+                <textarea id="direccion" name="direccion" rows="3" required></textarea>
+                <span class="error-mensaje" id="errorDireccion"></span>
+              </div>
+              
+              <div class="botones-formulario">
+                <button type="button" class="boton-cancelar" id="cancelarPago">Cancelar</button>
+                <button type="submit" class="boton-pagar">Confirmar Pago</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    `
+  
+    document.body.insertAdjacentHTML("beforeend", formularioHTML)
+  
+    const modalPago = document.getElementById("modalPago")
+    const cerrarModalPago = document.getElementById("cerrarModalPago")
+    const cancelarPago = document.getElementById("cancelarPago")
+    const formularioPago = document.getElementById("formularioPago")
+    const inputTarjeta = document.getElementById("tarjeta")
+  
+    cerrarModalPago.addEventListener("click", () => {
+      modalPago.remove()
+    })
+  
+    cancelarPago.addEventListener("click", () => {
+      modalPago.remove()
+    })
+  
+    modalPago.addEventListener("click", (e) => {
+      if (e.target === modalPago) {
+        modalPago.remove()
+      }
+    })
+  
+    // validar y procesar formulario
+    formularioPago.addEventListener("submit", (e) => {
+      e.preventDefault()
+  
+      const nombre = document.getElementById("nombre").value.trim()
+      const email = document.getElementById("email").value.trim()
+      const tarjeta = document.getElementById("tarjeta").value.trim()
+      const direccion = document.getElementById("direccion").value.trim()
+  
+      // limpiar errores anteriores
+      document.querySelectorAll(".error-mensaje").forEach((error) => (error.textContent = ""))
+      document
+        .querySelectorAll(".campo-formulario input, .campo-formulario textarea")
+        .forEach((campo) => campo.classList.remove("error"))
+  
+      let hayErrores = false
+  
+      if (nombre.length < 2) {
+        document.getElementById("errorNombre").textContent = "El nombre debe tener al menos 2 caracteres"
+        document.getElementById("nombre").classList.add("error")
+        hayErrores = true
+      }
+  
+      if (!validarEmail(email)) {
+        document.getElementById("errorEmail").textContent = "Ingresa un email válido"
+        document.getElementById("email").classList.add("error")
+        hayErrores = true
+      }
+  
+  
+      if (!hayErrores) {
+        procesarPago(nombre, email, tarjeta, direccion, total)
+        modalPago.remove()
+      }
+    })
+  }
+  
+  // funcion para procesar el pago
+  function procesarPago(nombre, email, tarjeta, direccion, total) {
+    const modalCarrito = document.getElementById("modalCarrito")
+    modalCarrito.style.display = "none"
+  
+    // mostrar mensaje de éxito
+    const mensajeExito = `
+      <div class="modal-exito" id="modalExito">
+        <div class="contenido-modal-exito">
+          <div class="icono-exito">✅</div>
+          <h3>¡Compra realizada con éxito!</h3>
+          <div class="detalles-compra">
+            <p><strong>Cliente:</strong> ${nombre}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Total pagado:</strong> ${total}</p>
+            <p><strong>Dirección de envío:</strong> ${direccion}</p>
+          </div>
+          <p class="mensaje-envio">Recibirás un email de confirmación y el seguimiento de tu pedido.</p>
+          <button class="boton-cerrar-exito" id="cerrarExito">Cerrar</button>
+        </div>
+      </div>
+    `
+  
+    document.body.insertAdjacentHTML("beforeend", mensajeExito)
+  
+    vaciarCarrito()
+  
+    document.getElementById("cerrarExito").addEventListener("click", () => {
+      document.getElementById("modalExito").remove()
+    })
+  }
+
+  
