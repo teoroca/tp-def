@@ -544,3 +544,58 @@ html {
     font-style: italic;
     padding: 2rem;
 }
+
+
+/* Nosotros y Envíos */
+.contenido-nosotros, .contenido-envios {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.8;
+}
+
+/* Footer */
+.pie {
+    background: #000;
+    color: white;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+@media (min-width: 600px) {
+    .pie {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+}
+
+.info-contacto,
+.seguinos {
+    text-align: center;
+}
+
+.info-contacto h3,
+.seguinos h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.iconos-redes {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.icono-red {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease;
+}
+
+.icono-red:hover {
+    transform: scale(1.1);
+}
