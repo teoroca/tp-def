@@ -842,3 +842,14 @@ html {
       flex: none;
     }
   }
+
+  @media (max-width: 768px) {
+    .contenedor-carrito {
+      position: relative;
+      margin-left: auto;
+      z-index: 10;
+    }
+  }
+
+
+  
