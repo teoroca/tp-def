@@ -11,13 +11,13 @@ const botonesAgregar = document.querySelectorAll(".boton-agregar")
 const botonComprar = document.getElementById("botonComprar")
 
 
-function limpiarCarritoCompleto() {
-  carrito = []
-  localStorage.removeItem("carrito")
-  localStorage.clear() 
-  actualizarCarrito()
-  console.log("Carrito limpiado completamente")
-}
+// function limpiarCarritoCompleto() {
+//   carrito = []
+//   localStorage.removeItem("carrito")
+//   localStorage.clear() 
+//   actualizarCarrito()
+//   console.log("Carrito limpiado completamente")
+// }
 
 function validarCarrito() {
   carrito = carrito.filter((producto) => {
@@ -411,4 +411,11 @@ function validarEmail(email) {
     })
   }
 
-  
+
+const vaciarCarritoBtn = document.getElementById("vaciarCarritoBtn")
+if (vaciarCarritoBtn) {
+  vaciarCarritoBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    vaciarCarrito()
+  })
+}
