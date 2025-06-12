@@ -359,8 +359,6 @@ function validarEmail(email) {
       const email = document.getElementById("email").value.trim()
       const tarjeta = document.getElementById("tarjeta").value.trim()
       const direccion = document.getElementById("direccion").value.trim()
-  
-      // limpiar errores anteriores
       document.querySelectorAll(".error-mensaje").forEach((error) => (error.textContent = ""))
       document
         .querySelectorAll(".campo-formulario input, .campo-formulario textarea")
@@ -436,7 +434,6 @@ function eliminarProductoPorId(id) {
     console.log("Carrito actual:", carrito)
   
     const index = carrito.findIndex((producto) => {
-      // Convertir ambos valores a string para comparación segura
       const productoId = String(producto.id)
       const targetId = String(id)
       console.log(`Comparando: "${productoId}" === "${targetId}"`)
