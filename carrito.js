@@ -11,38 +11,44 @@ const botonesAgregar = document.querySelectorAll(".boton-agregar")
 const botonComprar = document.getElementById("botonComprar")
 
 
-// function limpiarCarritoCompleto() {
-//   carrito = []
-//   localStorage.removeItem("carrito")
-//   localStorage.clear() 
-//   actualizarCarrito()
-//   console.log("Carrito limpiado completamente")
-// }
-
 function validarCarrito() {
-  carrito = carrito.filter((producto) => {
-    return (
-      producto.id &&
-      producto.nombre &&
-      producto.precio !== undefined &&
-      producto.precio !== null &&
-      producto.cantidad > 0
-    )
-  })
-}
+    const carritoOriginal = [...carrito]
+    carrito = carrito.filter((producto) => {
+      return (
+        producto.id &&
+        producto.nombre &&
+        producto.precio !== undefined &&
+        producto.precio !== null &&
+        producto.cantidad > 0
+      )
+    })
+  
+    if (carritoOriginal.length !== carrito.length) {
+      guardarCarrito()
+    }
+  }
 
 function cargarCarrito() {
-  try {
-    const carritoGuardado = localStorage.getItem("carrito")
-    if (carritoGuardado) {
-      carrito = JSON.parse(carritoGuardado)
-      validarCarrito() 
+    try {
+      const carritoGuardado = localStorage.getItem("carrito")
+      if (carritoGuardado) {
+        carrito = JSON.parse(carritoGuardado)
+        validarCarrito() 
+      }
+    } catch (error) {
+      console.log("Error al cargar carrito, limpiando...")
+      limpiarCarritoCompleto()
     }
-  } catch (error) {
-    console.log("Error al cargar carrito, limpiando...")
-    limpiarCarritoCompleto()
   }
-}
+
+function guardarCarrito() {
+    try {
+      localStorage.setItem("carrito", JSON.stringify(carrito))
+      console.log("Carrito guardado:", carrito)
+    } catch (error) {
+      console.error("Error al guardar carrito:", error)
+    }
+  }
 
 function actualizarCarrito() {
 
@@ -55,6 +61,7 @@ function actualizarCarrito() {
     totalCarrito.textContent = "$0"
     contadorCarrito.textContent = "0"
     contadorCarrito.style.display = "none"
+    guardarCarrito() 
     return
   }
 
@@ -77,7 +84,8 @@ function actualizarCarrito() {
                     <button class="boton-cantidad restar" data-id="${producto.id}" data-index="${index}">-</button>
                     <span class="numero-cantidad">${producto.cantidad}</span>
                     <button class="boton-cantidad sumar" data-id="${producto.id}" data-index="${index}">+</button>
-                    <button class="boton-eliminar" data-id="${producto.id}" data-index="${index}">🗑️</button>
+                    <button class="boton-eliminar" data-id="${producto.id}">🗑️</button>
+
                 </div>
             </div>
         `
@@ -89,7 +97,7 @@ function actualizarCarrito() {
   contadorCarrito.textContent = cantidadTotal
   contadorCarrito.style.display = cantidadTotal > 0 ? "flex" : "none"
 
-  localStorage.setItem("carrito", JSON.stringify(carrito))
+  guardarCarrito()
 
   agregarEventListenersCarrito()
 }
@@ -117,13 +125,14 @@ function agregarEventListenersCarrito() {
 
   const botonesEliminar = document.querySelectorAll(".boton-eliminar")
   botonesEliminar.forEach((boton) => {
-    boton.addEventListener("click", (e) => {
-      e.preventDefault()
-      e.stopPropagation()
-      const index = Number.parseInt(boton.getAttribute("data-index"))
-      eliminarProducto(index)
-    })
+  boton.addEventListener("click", (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const id = boton.getAttribute("data-id")
+    eliminarProductoPorId(id)
   })
+})
+
 }
 
 function agregarAlCarrito(id, nombre, precio, imagen) {
@@ -412,6 +421,7 @@ function validarEmail(email) {
   }
 
 
+// vaciar carrito
 const vaciarCarritoBtn = document.getElementById("vaciarCarritoBtn")
 if (vaciarCarritoBtn) {
   vaciarCarritoBtn.addEventListener("click", (e) => {
@@ -419,3 +429,34 @@ if (vaciarCarritoBtn) {
     vaciarCarrito()
   })
 }
+
+
+function eliminarProductoPorId(id) {
+    console.log("Intentando eliminar producto con ID:", id)
+    console.log("Carrito actual:", carrito)
+  
+    const index = carrito.findIndex((producto) => {
+      // Convertir ambos valores a string para comparación segura
+      const productoId = String(producto.id)
+      const targetId = String(id)
+      console.log(`Comparando: "${productoId}" === "${targetId}"`)
+      return productoId === targetId
+    })
+  
+    if (index !== -1) {
+      const nombreProducto = carrito[index].nombre
+      carrito.splice(index, 1)
+      console.log(`Producto "${nombreProducto}" eliminado correctamente del índice ${index}`)
+      actualizarCarrito()
+      mostrarMensaje(`${nombreProducto} eliminado del carrito`)
+    } else {
+      console.error("Producto no encontrado para eliminar con ID:", id)
+      console.log(
+        "IDs disponibles en carrito:",
+        carrito.map((p) => p.id),
+      )
+    }
+  
+    console.log("Carrito después de eliminar:", carrito)
+  }
+  
