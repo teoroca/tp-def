@@ -10,7 +10,7 @@ const mensajeConfirmacion = document.getElementById("mensajeConfirmacion")
 const botonesAgregar = document.querySelectorAll(".boton-agregar")
 const botonComprar = document.getElementById("botonComprar")
 
-
+//filtra productos inválidos del carrito
 function validarCarrito() {
     const carritoOriginal = [...carrito]
     carrito = carrito.filter((producto) => {
@@ -50,6 +50,7 @@ function guardarCarrito() {
     }
   }
 
+// actualiza el contenido visual del carrito
 function actualizarCarrito() {
 
   validarCarrito()
