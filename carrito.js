@@ -27,7 +27,7 @@ function validarCarrito() {
       guardarCarrito()
     }
   }
-
+  // carga carrito desde localStorage
 function cargarCarrito() {
     try {
       const carritoGuardado = localStorage.getItem("carrito")
@@ -102,7 +102,7 @@ function actualizarCarrito() {
 
   agregarEventListenersCarrito()
 }
-
+// agrega eventos a los botones del carrito
 function agregarEventListenersCarrito() {
   const botonesSumar = document.querySelectorAll(".sumar")
   botonesSumar.forEach((boton) => {
@@ -136,6 +136,7 @@ function agregarEventListenersCarrito() {
 
 }
 
+// agrega un producto al carrito
 function agregarAlCarrito(id, nombre, precio, imagen) {
   if (!id || !nombre || precio === undefined || precio === null) {
     console.error("Datos de producto inválidos")
@@ -208,7 +209,7 @@ function vaciarCarrito() {
   mostrarMensaje("Carrito vaciado")
 }
 
-
+// inicia eventos al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
 
   cargarCarrito()
@@ -429,7 +430,7 @@ if (vaciarCarritoBtn) {
   })
 }
 
-
+//elimina producto por id
 function eliminarProductoPorId(id) {
     console.log("Intentando eliminar producto con ID:", id)
     console.log("Carrito actual:", carrito)
